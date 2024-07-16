@@ -1,0 +1,56 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Markdown to HTML</title>
+    <script src="https://fastly.jsdelivr.net/npm/marked@3.0.7/marked.min.js"></script>
+</head>
+<body>
+    <div id="mdid">Error</div>
+    <div id="getu">Error</div>
+    <div id="content">Error</div>
+    <script>
+
+
+        function GetQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg); //获取url中"?"符后的字符串并正则匹配
+            var context = "";
+            if (r != null)
+                context = decodeURIComponent(r[2]);
+            reg = null;
+            r = null;
+            return context == null || context == "" || context == "undefined" ? "" : context;
+        }
+
+        document.getElementById('mdid').innerHTML = "Name:" + GetQueryString('id');
+
+        document.getElementById('getu').innerHTML = "URL: http://gedh2011.cloudns.be/"+GetQueryString('id')+".md";
+        
+
+        fetch("http://gedh2011.cloudns.be/"+GetQueryString('id')+".md")
+        .then(function (response) {
+            if (response.ok) {
+            return response.text();
+            }
+            throw new Error('Network response was not ok.');
+        })
+        .then(function (markdownContent) {
+            // 使用markdownContent做其他处理
+          
+            console.log(markdownContent);
+            document.getElementById('content').innerHTML = marked.parse(markdownContent);
+        })
+        .catch(function (error) {
+          document.getElementById('content').innerHTML = "Error ,Shit";
+       });
+
+
+       
+        
+    </script>
+</body>
+</html
+
+
+
