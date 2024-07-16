@@ -25,11 +25,11 @@
 
         document.getElementById('mdid').innerHTML = "Name:" + GetQueryString('id');
 
-        document.getElementById('getu').innerHTML = "URL: http://gedh2011.cloudns.be/"+GetQueryString('id')+".md";
+        document.getElementById('getu').innerHTML = "URL: http://gedh2011.cloudns.be/blog/"+GetQueryString('id')+".md";
         
 
-        fetch("http://gedh2011.cloudns.be/"+GetQueryString('id')+".md")
-        .then(function (response) {
+        fetch("http://gedh2011.cloudns.be/blog/"+GetQueryString('id')+".md")
+        。then(function (response) {
             if (response.ok) {
             return response.text();
             }
