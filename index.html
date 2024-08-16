@@ -10,23 +10,7 @@
 <body>
 
 
-    <script>
-        document.getElementById("ne").style.display="none";
-    </script>
-    <script>
-        window.onloadTurnstileCallback = function () {
-             turnstile.render('#example-container', {
-            sitekey: '0x4AAAAAAAhXygwj_uiK9LSw',
-             callback: function(token) {
-                console.log(`Challenge Success ${token}`);
-                setTimeout(()=>{
-                    document.getElementById("example-container").style.display="none";
-                    document.getElementById("go").style.display.style="flex";
-                },2000);
-            },
-        });
-        };
-    </script>
+   
     
     <div id="example-container">
 
@@ -59,7 +43,23 @@
         </div>
     </div>
     
-    
+     <script>
+        document.getElementById("ne").style.display="none";
+    </script>
+    <script>
+        window.onloadTurnstileCallback = function () {
+             turnstile.render('#example-container', {
+            sitekey: '0x4AAAAAAAhXygwj_uiK9LSw',
+             callback: function(token) {
+                console.log(`Challenge Success ${token}`);
+                setTimeout(()=>{
+                    document.getElementById("example-container").style.display="none";
+                    document.getElementById("go").style.display.style="flex";
+                },2000);
+            },
+        });
+        };
+    </script>
     
 </body>
 </html>
