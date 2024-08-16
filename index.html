@@ -3,19 +3,26 @@
     <meta charset="UTF-8">
     <title>gedhspace.github.io</title>
 
-    
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onloadTurnstileCallback" defer></script>
-   
+    
+    
 </head>
 <body>
 
 
+    <script>
+        document.getElementById("ne").style.display="none";
+    </script>
     <script>
         window.onloadTurnstileCallback = function () {
              turnstile.render('#example-container', {
             sitekey: '0x4AAAAAAAhXygwj_uiK9LSw',
              callback: function(token) {
                 console.log(`Challenge Success ${token}`);
+                setTimeout(()=>{
+                    document.getElementById("example-container").style.display="none";
+                    document.getElementById("go").style.display.style="flex";
+                },2000);
             },
         });
         };
@@ -25,32 +32,33 @@
 
     </div>
 
-
-    <div>
-        This website by Gedh
-    </div>
-    <div>
-        QQ:738813115
-        E-mail:gdh20111218@163.com or gedh20111218@gamil.com
-    </div>
-    <div id="go">
+    <div id="ne">
         <div>
-            <a href="https://bing.gedh2011.cloudns.be">Bing</a>
+            This website by Gedh
         </div>
-        
         <div>
-            <a href="https://ttt.gedh2011.cloudns.be/90cd4a77-141a-43c9-991b-08263cfe9c10">magic1</a>
+            QQ:738813115
+            E-mail:gdh20111218@163.com or gedh20111218@gamil.com
         </div>
+        <div id="go">
+            <div>
+                <a href="https://bing.gedh2011.cloudns.be">Bing</a>
+            </div>
+            
+            <div>
+                <a href="https://ttt.gedh2011.cloudns.be/90cd4a77-141a-43c9-991b-08263cfe9c10">magic1</a>
+            </div>
 
-        <div>
-            <a href="https://v2raynn.gedh2011.cloudns.be/d342d11e-d424-4583-b36e-524ab1f0afa4">magic2</a>
+            <div>
+                <a href="https://v2raynn.gedh2011.cloudns.be/d342d11e-d424-4583-b36e-524ab1f0afa4">magic2</a>
+
+            </div>
+            
+            
 
         </div>
-        
-        
-
     </div>
-
+    
     
     
 </body>
