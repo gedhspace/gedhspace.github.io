@@ -9,6 +9,18 @@
 </head>
 <body>
 
+
+    <script>
+        window.onloadTurnstileCallback = function () {
+             turnstile.render('#example-container', {
+            sitekey: '0x4AAAAAAAhXygwj_uiK9LSw',
+             callback: function(token) {
+                console.log(`Challenge Success ${token}`);
+            },
+        });
+        };
+    </script>
+    
     <div id="example-container">
 
     </div>
