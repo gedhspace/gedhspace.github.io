@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<body>
+ 
+<h2>POST Request Example</h2>
+ 
+<button type="button" onclick="sendPostRequest()">Send POST Request</button>
+ 
+<script>
+function sendPostRequest() {
+    fetch('https://www.runoob.com/try/compile2.php', {
+        method: 'POST', // 设置请求方法
+        mode: 'cors',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' // 设置请求的Content-Type
+        },
+        body: "code=&d=" // 设置请求的Body
+    })
+    .then(response => response.json()) // 解析响应的JSON
+    .then(data => console.log(data)) // 处理解析后的数据
+    .catch((error) => console.error('Error:', error)); // 错误处理
+}
+</script>
+ 
+</body>
+</html>
