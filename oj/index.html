@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+    <head>
+
+    </head>
+
+    <body>
+        <div id="name"></div>
+
+        <div>题目描述</div>
+        <div id="prtext"></div>
+
+        <div>题目输入</div>
+        <div id="prin"></div>
+
+        <div>题目输出</div>
+        <div id="prout"></div>
+
+        <div>样例输入</div>
+        <div id="yli"></div>
+
+        <div>样例输出</div>
+        <div id="ylo"></div>
+
+        在此作答
+        <textarea class="form-control"  id="code" name="code" rows="18">#include<bits/stdc++.h>
+          using namespace std;
+          
+          int main(){
+            
+            int n,m;
+            cin>>n>>m;
+            cout<<n<<" "<<m;
+            
+            
+            return 0;
+          }</textarea>
+
+        <button id="up">提交</button>
+
+
+        <div id="defen">
+
+        </div>
+
+        <script>
+          var num;
+          const url="https://tinywebdb.appinventor.space/api?user=onlinej&secret=014efc0c&action=get&tag=";
+          function GetQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg); //获取url中"?"符后的字符串并正则匹配
+            var context = "";
+            if (r != null)
+                context = decodeURIComponent(r[2]);
+            reg = null;
+            r = null;
+            return context == null || context == "" || context == "undefined" ? "" : context;
+          }
+          fetch(url+GetQueryString("id"))
+            .then(function (response) {
+                if (response.ok) {
+                  return response.text();
+                }
+                throw new Error('Network response was not ok.');
+            })
+            .then(function (re) {// 使用markdownContent做其他处理
+              
+                console.log(re);
+                
+                var obj = JSON.parse(re.toString());
+
+                var promble=JSON.parse(obj[GetQueryString("id")]);
+                console.log(promble["pr"]);
+
+                
+
+                document.getElementById('prtext').innerHTML=promble["pr"];
+                document.getElementById('prin').innerHTML=promble["inp"];
+                document.getElementById('prout').innerHTML=promble["outp"];
+                document.getElementById('yli').innerHTML=promble["ylin"];
+                document.getElementById('ylo').innerHTML=promble["ylo"];
+                document.getElementById('name').innerHTML="题目名称:"+promble["name"];
+                num=promble["count"];
+                
+            })
+            .catch(function (error) {
+              console.log("error");
+          });
+
+         
+
+
+          const button = document.getElementById('up');
+
+          function syncRequest(url, param){
+            const xhr = new XMLHttpRequest();
+            xhr.open("GET", url, false); // false 表示同步请求
+            xhr.send(param);
+            if (xhr.status === 200) {
+              return xhr.responseText;
+            } else {
+              throw new Error("请求失败: " + xhr.status);
+            }
+          }
+          
+
+          async function PostWait(url,data){
+            const da=await fetch(url, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+               },
+              body: data.toString()
+            })
+            return da.json();
+          }
+          // 为按钮添加鼠标按下事件监听器
+          button.addEventListener('mousedown', function(event) {
+            
+            var sumcount=0;
+            const url2 = 'https://ojproxy.gedh2011.us.kg/https://www.runoob.com/try/compile2.php';
+
+            document.getElementById('defen').innerHTML="正在判题0%";
+
+            for(var now=1;now<=num;now++){
+              
+              var data=syncRequest(url+GetQueryString("id")+"-"+now.toString());
+              var tmp=JSON.parse(data.toString());
+
+              var obj=JSON.parse(tmp[GetQueryString("id")+"-"+now.toString()]);
+
+              var input=obj["input"];
+              var output=obj["output"];
+              console.log(input+" "+output);
+
+              
+
+              
+              const params = new URLSearchParams();
+              params.append('code', document.getElementById("code").value);
+              params.append('token', '066417defb80d038228de76ec581a50a');
+              params.append('language', 7);
+              params.append('fileext', 'cpp');
+              params.append('stdin', input.toString());
+
+              const xmlhttp = new XMLHttpRequest();
+              xmlhttp.open("POST",url2,false);
+              xmlhttp.send(params);
+              //xmlhttp.send("token=066417defb80d038228de76ec581a50a&language=7&fileext=cpp&stdin="+input.toString());
+              //xmlhttp.send("code=%23include%3Cbits%2Fstdc%2B%2B.h%3E%0A++++++++++using+namespace+std%3B%0A++++++++++%0A++++++++++int+main%28%29%7B%0A++++++++++++%0A++++++++++++int+n%2Cm%3B%0A++++++++++++cin%3E%3En%3E%3Em%3B%0A++++++++++++cout%3C%3Cn%3C%3C%22+%22%3C%3Cm%3B%0A++++++++++++%0A++++++++++++%0A++++++++++++return+0%3B%0A++++++++++%7D&token=066417defb80d038228de76ec581a50a&language=7&fileext=cpp&stdin=5+7");
+              console.log(xmlhttp.responseText);
+
+              //data => console.log(data)
+              //PostWait(url2, params)
+              //  .then(function(ret){
+              //    console.log(now.toString()+" "+output);
+              //    if(ret.output==output){
+              //      sumcount=sumcount+(100/num);
+              //    }
+              //    console.log(sumcount);
+              //  })
+              //  .catch(error => console.error(error));
+               
+              var objn = JSON.parse(xmlhttp.responseText);
+              if(objn["output"]==output){
+                sumcount=sumcount+(100/num);
+              }
+              console.log(sumcount);
+
+              document.getElementById('defen').innerHTML="正在判题 "+now*1.0/num*1.0*100+"%";
+
+            }
+            
+            document.getElementById('defen').innerHTML="判题完成 得分"+sumcount+"分";
+            
+          });
+            
+        </script>
+    </body>
+</html>
